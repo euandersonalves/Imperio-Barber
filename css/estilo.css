@@ -1,0 +1,1298 @@
+/* =====================================================================
+   SITE DA IMPÉRIO BARBER - ARQUIVO CSS (a aparência do site)
+   =====================================================================
+   COMO LER ESTE ARQUIVO:
+   O CSS é escrito assim:   .nome-da-classe { propriedade: valor; }
+   Cada bloco muda a aparência dos elementos do HTML que têm aquela
+   classe (class="nome-da-classe").
+
+   ÍNDICE (use Ctrl+F e procure pelo número ou nome):
+     1. CONFIGURAÇÕES (cores, fundo do home, tempo das avaliações)
+     2. BASE (regras gerais da página)
+     3. TOPO
+     4. HOME
+     5. BOTÕES (botão grande, ícones e efeitos)
+     6. GALERIA / CARROSSEL
+     7. AVALIAÇÕES
+     8. CONTATO
+     9. LOCALIZAÇÃO
+    10. RODAPÉ
+    11. FOTO AMPLIADA
+    12. EFEITO DE ONDA (clique)
+    13. CELULARES PEQUENOS
+    14. TABLET E COMPUTADOR (telas grandes)
+   ===================================================================== */
+
+
+/* =====================================================================
+   1. CONFIGURAÇÕES
+   Aqui ficam os valores que você mais vai querer mudar.
+   Mudou aqui, muda no site inteiro.
+   ===================================================================== */
+:root {
+
+  /* ----- CORES DO SITE ----- */
+  --cor-fundo: #141110;            /* fundo marrom bem escuro */
+  --cor-destaque: #f26a43;         /* laranja (detalhes, botões, títulos pequenos) */
+  --cor-linha: #2a2422;            /* linhas que separam as seções */
+  --cor-caixa: #1a1614;            /* fundo das caixinhas */
+  --cor-borda-caixa: #2f2724;      /* borda das caixinhas */
+  --cor-texto: #ffffff;            /* texto principal */
+  --cor-texto-suave: #ddd3ce;      /* texto das avaliações e do endereço */
+  --cor-texto-rodape: #b0a5a0;     /* texto do rodapé */
+
+  /* ----- CORES DAS REDES (aparecem ao passar o mouse nos ícones) ----- */
+  --cor-whatsapp: #25d366;         /* verde */
+  --cor-email: #ea4335;            /* vermelho */
+  --cor-cafe: #ffdd00;             /* amarelo */
+  --cor-instagram: #e4405f;        /* rosa (usada na onda do clique) */
+
+  /* ----- IMAGEM DE FUNDO DO HOME -----
+     Para colocar uma foto no fundo do home:
+       1. coloque a foto na pasta "imagens" (ex: fundo-home.jpg)
+       2. troque "none" por:  url(../imagens/fundo-home.jpg)
+     Para tirar a foto, volte para "none".
+     Use --opacidade-fundo-home para deixar a foto mais fraca ou forte
+     (0 = invisível, 1 = totalmente visível). */
+  --imagem-fundo-home: url(../imagens/fundo.jpg);
+  --opacidade-fundo-home: 0.4;
+
+  /* ----- TEMPO DAS AVALIAÇÕES -----
+     Quanto tempo cada avaliação fica na tela antes de trocar. */
+  --tempo-avaliacao: 6s;
+
+  /* ----- ESPAÇO NAS LATERAIS DA PÁGINA ----- */
+  --espaco-lateral: 18px;
+}
+
+
+/* =====================================================================
+   2. BASE
+   Regras gerais que valem para a página inteira.
+   ===================================================================== */
+
+/* Faz o tamanho de cada caixa já contar a borda e o espaço interno,
+   e tira as margens automáticas dos elementos */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  background: var(--cor-fundo);
+  color-scheme: dark;
+  /* espaço extra para a barra do celular (relógio, bateria) não cobrir o site */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+body {
+  color: var(--cor-texto);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  max-width: 480px;          /* no celular o site nunca passa de 480px de largura */
+  margin: 0 auto;            /* centraliza o site na tela */
+  overflow-x: hidden;        /* impede a página de rolar para o lado */
+
+  /* Fundo da página: textura de granulado + dois brilhos avermelhados + degradê escuro */
+  background:
+    url(../imagens/granulado.svg),
+    radial-gradient(120% 40% at 100% 38%, #3a1f1688, transparent 70%),
+    radial-gradient(90% 35% at 0% 92%, #4a241a77, transparent 70%),
+    linear-gradient(180deg, #191413, #110e0d 60%, #171110);
+}
+
+/* Links sem sublinhado e com a cor do texto em volta */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Contorno laranja quando alguém navega pelo teclado (Tab) */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 3px;
+}
+
+/* Guarda o degradê do Instagram (veja o início do HTML). Não aparece. */
+.svg-oculto {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Textinho laranja em letras maiúsculas usado em vários títulos pequenos */
+.titulo-pequeno {
+  color: var(--cor-destaque);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+
+/* =====================================================================
+   3. TOPO
+   O logo redondo no alto da página.
+   ===================================================================== */
+.topo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 24px;
+}
+
+/* Brilho laranja suave atrás do logo */
+.topo::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 190px;
+  height: 190px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #f26a4333, transparent 65%);
+  pointer-events: none;
+}
+
+/* Bolinha do logo (tamanho do logo no celular: 68px) */
+.logo {
+  position: relative;
+  z-index: 1;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #1e1b1c;
+  border: 1px solid var(--cor-destaque);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 30px #000a, 0 0 40px #f26a4326;
+}
+
+.logo-imagem {
+  width: 56px;
+  height: 56px;
+  display: block;
+}
+
+
+/* =====================================================================
+   4. HOME
+   Faixa cinza-quente com título, frase e botões.
+   ===================================================================== */
+.secao-home {
+  position: relative;
+  overflow: hidden;
+  padding: 47px var(--espaco-lateral);
+
+  /* Fundo: textura + brilho rosado no canto + listras diagonais + degradê cinza */
+  background:
+    url(../imagens/granulado.svg),
+    radial-gradient(90% 90% at 0% 100%, #c9877a 0%, #8d5b50aa 35%, transparent 70%),
+    repeating-linear-gradient(115deg, #ffffff09 0 1px, transparent 1px 16px),
+    linear-gradient(160deg, #5b5450 0%, #413a37 50%, #231d1b 100%);
+}
+
+/* Escurecido suave na parte de baixo da faixa */
+.secao-home::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  background: linear-gradient(transparent, #14111066);
+  pointer-events: none;
+}
+
+/* Imagem de fundo opcional (veja --imagem-fundo-home lá em cima) */
+.home-fundo-imagem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--imagem-fundo-home);
+  background-size: cover;
+  background-position: center;
+  opacity: var(--opacidade-fundo-home);
+}
+
+/* Linha com o texto à esquerda e os botões à direita */
+.home-conteudo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.home-texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.home-titulo {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 10px 0;
+}
+
+.home-subtitulo {
+  color: #c1b4ae;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* A palavra "felizes": parece um link, mas é um botão só estético */
+.palavra-felizes {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--cor-destaque);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.4s, text-shadow 0.4s, transform 0.2s;
+}
+
+.palavra-felizes:active {
+  transform: scale(0.94);
+}
+
+/* Esta classe é colocada pelo JavaScript quando a pessoa clica em "felizes".
+   Para trocar a cor, mude o valor de "color" (verde-água por enquanto). */
+.palavra-felizes.cor-alternativa {
+  color: #5fd6c0;
+  text-shadow: 0 0 16px #5fd6c066;
+}
+
+/* Coluna com os dois botões da home */
+.home-botoes {
+  width: 44%;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+/* =====================================================================
+   5. BOTÕES
+   O botão com borda branca (usado no home e no contato) e os ícones.
+   ===================================================================== */
+.botao {
+  position: relative;
+  overflow: hidden;           /* a onda do clique não pode sair do botão */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  height: 47px;
+  padding: 0 13px;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  background: #0000002e;
+  backdrop-filter: blur(2px);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+/* Efeito ao apertar o botão */
+.botao:active {
+  transform: scale(0.98);
+  background: #ffffff22;
+}
+
+/* ----- ÍCONES (desenhos pequenos) ----- */
+.icone {
+  flex: none;
+  transition: transform 0.3s, fill 0.3s, stroke 0.3s;
+}
+
+/* Ícone feito só de linhas (contorno) */
+.icone-linha {
+  fill: none;
+  stroke: var(--cor-destaque);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Ícone preenchido */
+.icone-cheio {
+  fill: var(--cor-destaque);
+}
+
+/* Tamanho dos ícones dentro dos botões */
+.botao .icone {
+  width: 14px;
+  height: 14px;
+}
+
+/* ----- CORES DAS REDES SOCIAIS NOS ÍCONES -----
+   Os ícones são laranja. Eles só ganham a cor da rede quando o mouse
+   passa por cima (no computador) ou enquanto o dedo aperta (no celular). */
+
+/* Enquanto aperta (celular) */
+.botao:active .icone-instagram,
+.rede-link:active .icone-instagram {
+  stroke: url(#gradiente-instagram);
+}
+.botao:active .icone-whatsapp {
+  stroke: var(--cor-whatsapp);
+}
+.rede-link:active .icone-email {
+  fill: var(--cor-email);
+}
+.rede-link:active .icone-cafe {
+  fill: var(--cor-cafe);
+}
+.rede-link:active .icone-telefone {
+  fill: var(--cor-whatsapp);
+}
+
+/* Só vale em dispositivos que têm mouse */
+@media (hover: hover) {
+
+  /* Cores das redes ao passar o mouse */
+  .botao:hover .icone-instagram,
+  .rede-link:hover .icone-instagram {
+    stroke: url(#gradiente-instagram);
+  }
+  .botao:hover .icone-whatsapp {
+    stroke: var(--cor-whatsapp);
+  }
+  .rede-link:hover .icone-email {
+    fill: var(--cor-email);
+  }
+  .rede-link:hover .icone-cafe {
+    fill: var(--cor-cafe);
+  }
+  .rede-link:hover .icone-telefone {
+    fill: var(--cor-whatsapp);
+  }
+
+  /* Botão: sobe um pouquinho, ganha brilho laranja e o ícone gira */
+  .botao:hover {
+    transform: translateY(-2px);
+    border-color: var(--cor-destaque);
+    background: #f26a4324;
+    box-shadow: 0 0 0 1px #f26a4366, 0 12px 26px -10px #f26a43aa;
+  }
+  .botao:hover .icone {
+    transform: scale(1.2) rotate(-6deg);
+  }
+}
+
+/* Botão redondo pequeno (setas da galeria, setas e X da foto ampliada) */
+.botao-redondo {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0 0 2px 0;
+  border: 1px solid #3a322f;
+  border-radius: 50%;
+  background: var(--cor-caixa);
+  color: #ffffff;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+@media (hover: hover) {
+  .botao-redondo:hover {
+    border-color: var(--cor-destaque);
+    color: var(--cor-destaque);
+  }
+}
+
+
+/* =====================================================================
+   6. GALERIA / CARROSSEL
+   Faixa de fotos que mostra 4 por vez.
+   ===================================================================== */
+.secao-galeria {
+  padding: 36px var(--espaco-lateral) 34px;
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+/* Linha com o título à esquerda e as setas à direita */
+.galeria-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.galeria-cabecalho .titulo-pequeno {
+  font-size: 8.6px;
+}
+
+.galeria-setas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* A faixa que contém todas as fotos lado a lado.
+   O JavaScript move esta faixa para o lado. */
+.carrossel {
+  --espaco-entre-fotos: 9px;   /* distância entre uma foto e outra */
+  display: flex;
+  gap: var(--espaco-entre-fotos);
+  overflow-x: auto;
+  scrollbar-width: none;       /* esconde a barra de rolagem (Firefox) */
+  overscroll-behavior-x: contain;
+  padding: 6px 0 14px;         /* espaço para a sombra das fotos não ser cortada */
+  margin: -6px 0 -14px;
+}
+
+/* Esconde a barra de rolagem (Chrome, Safari) */
+.carrossel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Cada foto ocupa 1/4 da largura (descontando os espaços entre elas) */
+.foto-item {
+  flex: 0 0 calc((100% - 3 * var(--espaco-entre-fotos)) / 4);
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* A foto em si: quadrada, preto e branco, cantos arredondados */
+.foto-imagem {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: inherit;
+  filter: grayscale(1);
+  box-shadow: 0 8px 18px #0007;
+  transition: filter 0.35s, transform 0.35s;
+}
+
+/* Efeito do mouse: a foto sob o mouse cresce um pouco e
+   as OUTRAS ficam desfocadas e escurecidas */
+@media (hover: hover) {
+  .carrossel:hover .foto-item:not(:hover) .foto-imagem {
+    filter: grayscale(1) blur(2.5px) brightness(0.55);
+  }
+  .foto-item:hover .foto-imagem {
+    transform: scale(1.05);
+  }
+}
+
+
+/* =====================================================================
+   7. AVALIAÇÕES
+   Caixa com a mensagem em cima e os 3 perfis embaixo.
+   ===================================================================== */
+.secao-avaliacoes {
+  padding: 40px var(--espaco-lateral) 38px;
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+.secao-avaliacoes > .titulo-pequeno {
+  display: block;
+  font-size: 8.6px;
+  margin-bottom: 22px;
+}
+
+/* A caixa da mensagem.
+   --posicao-perfil diz qual perfil está ativo (0, 1 ou 2).
+   O JavaScript muda esse número, e a setinha da caixa anda até o perfil. */
+.avaliacao-caixa {
+  --posicao-perfil: 0;
+  position: relative;
+  display: grid;               /* as 3 mensagens ficam empilhadas no mesmo lugar */
+  margin-bottom: 26px;
+  padding: 20px 18px 22px;
+  background: var(--cor-caixa);
+  border: 1px solid var(--cor-borda-caixa);
+  border-radius: 14px;
+  box-shadow: 0 14px 30px -16px #000;
+}
+
+/* A setinha embaixo da caixa que aponta para o perfil ativo.
+   Como são 3 perfis, os centros deles ficam em 1/6, 3/6 e 5/6 da largura. */
+.avaliacao-caixa::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: calc((var(--posicao-perfil) * 2 + 1) / 6 * 100%);
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--cor-caixa);
+  border: solid var(--cor-borda-caixa);
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cada mensagem: começa invisível. A que tem a classe "ativa" aparece. */
+.avaliacao {
+  grid-area: 1 / 1;            /* todas ocupam o mesmo espaço da caixa */
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.45s, transform 0.45s;
+}
+
+.avaliacao.ativa {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.avaliacao-estrelas {
+  margin-bottom: 10px;
+  color: var(--cor-destaque);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+}
+
+.avaliacao-texto {
+  margin-bottom: 14px;
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.avaliacao-nome {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Linha com os 3 perfis, cada um no centro de 1/3 da largura */
+.perfis {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+/* Botão de cada perfil. Os não selecionados ficam meio apagados. */
+.perfil {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  opacity: 0.5;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.perfil.ativo {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+@media (hover: hover) {
+  .perfil:hover {
+    opacity: 1;
+  }
+}
+
+/* A bolinha com as iniciais (ou foto) do cliente */
+.perfil-foto {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 58px;                 /* tamanho da bolinha (72px do botão - 14px do anel) */
+  height: 58px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;           /* a foto preenche a bolinha sem entortar */
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* O anel em volta do perfil (começa na parte de cima) */
+.perfil-anel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.perfil-anel circle {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+/* Círculo fixo de baixo (cinza escuro) */
+.anel-fundo {
+  stroke: #3a322f;
+}
+
+/* Círculo laranja que esvazia: é o CONTADOR de tempo.
+   O número 207.35 é o tamanho da linha do círculo. Começa preenchido
+   (esconde 0) e vai sumindo até esconder tudo (207.35). */
+.anel-contador {
+  stroke: var(--cor-destaque);
+  stroke-linecap: round;
+  stroke-dasharray: 207.35;
+  stroke-dashoffset: 207.35;
+}
+
+/* Só o perfil ativo roda a animação. Ela começa pausada. */
+.perfil.ativo .anel-contador {
+  animation: esvaziar var(--tempo-avaliacao) linear forwards;
+  animation-play-state: paused;
+}
+
+/* A classe "visivel" é colocada pelo JavaScript quando a seção aparece
+   na tela. Só então o contador começa a andar. */
+.secao-avaliacoes.visivel .perfil.ativo .anel-contador {
+  animation-play-state: running;
+}
+
+/* No computador, o contador pausa enquanto o mouse está sobre a seção */
+@media (hover: hover) {
+  .secao-avaliacoes:hover .perfil.ativo .anel-contador {
+    animation-play-state: paused;
+  }
+}
+
+/* Animação do contador: o anel esvazia E vai ficando transparente */
+@keyframes esvaziar {
+  from {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 207.35;
+    opacity: 0;
+  }
+}
+
+
+/* =====================================================================
+   8. CONTATO
+   Frase final, botão do WhatsApp e ícones de contato.
+   ===================================================================== */
+.secao-contato {
+  padding: 48px var(--espaco-lateral) 36px;
+}
+
+.contato-titulo {
+  margin-bottom: 18px;
+  font-size: 31px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.contato-frase {
+  display: block;
+  margin-bottom: 28px;
+  font-size: 9.4px;
+  letter-spacing: 0.2em;
+  line-height: 1.6;
+}
+
+/* O botão aqui é maior que o do home */
+.secao-contato .botao {
+  height: 60px;
+  padding: 0 24px;
+  margin-bottom: 34px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}
+
+.secao-contato .botao .icone {
+  width: 20px;
+  height: 20px;
+}
+
+/* Linha com os 4 ícones de contato */
+.redes-sociais {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.rede-link {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #3a322f;
+  border-radius: 10px;
+  background: var(--cor-caixa);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.rede-link .icone {
+  width: 21px;
+  height: 21px;
+}
+
+/* A cor de cada rede (usada na borda, no brilho e na onda do clique) */
+.rede-email     { --cor-da-rede: var(--cor-email); }
+.rede-instagram { --cor-da-rede: var(--cor-instagram); }
+.rede-cafe      { --cor-da-rede: var(--cor-cafe); }
+.rede-telefone  { --cor-da-rede: var(--cor-whatsapp); }
+
+@media (hover: hover) {
+  .rede-link:hover {
+    transform: translateY(-3px);
+    border-color: var(--cor-da-rede);
+    background: #221b18;
+    box-shadow: 0 10px 22px -8px var(--cor-da-rede);
+  }
+  .rede-link:hover .icone {
+    transform: scale(1.15);
+  }
+}
+
+
+/* =====================================================================
+   9. LOCALIZAÇÃO
+   Mapa quadradinho à esquerda e endereço ao lado.
+   ===================================================================== */
+.secao-localizacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 36px var(--espaco-lateral) 12px;
+  border-top: 1px solid var(--cor-linha);
+}
+
+/* O mapa: um quadrado com cantos suaves (72px = mesma altura dos perfis) */
+.mapa {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--cor-borda-caixa);
+  border-radius: 16px;
+  background: #1c1715;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.mapa svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mapa-pino {
+  transition: transform 0.3s;
+}
+
+/* Círculo que cresce e some, embaixo do pino */
+.mapa-pulso {
+  fill: none;
+  stroke: var(--cor-destaque);
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulsar 2.2s ease-out infinite;
+}
+
+@keyframes pulsar {
+  from {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+.localizacao-info {
+  min-width: 0;
+}
+
+.localizacao-info .titulo-pequeno {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 10px;
+}
+
+.localizacao-endereco {
+  margin-bottom: 8px;
+  color: var(--cor-texto-suave);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.link-mapa {
+  color: var(--cor-destaque);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.link-mapa span {
+  display: inline-block;
+  transition: transform 0.25s;
+}
+
+@media (hover: hover) {
+  .mapa:hover {
+    transform: translateY(-2px);
+    border-color: var(--cor-destaque);
+    box-shadow: 0 10px 22px -8px #f26a43aa;
+  }
+  .mapa:hover .mapa-pino {
+    transform: translateY(-3px);
+  }
+  .link-mapa:hover {
+    color: #ff8f6b;
+  }
+  .link-mapa:hover span {
+    transform: translateX(4px);
+  }
+}
+
+
+/* =====================================================================
+   10. RODAPÉ
+   ===================================================================== */
+.rodape {
+  padding: 24px var(--espaco-lateral) 28px;
+  color: var(--cor-texto-rodape);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
+
+/* =====================================================================
+   11. FOTO AMPLIADA
+   Janela que cobre a tela inteira quando o cliente clica numa foto.
+   Fica escondida (display: none) até o JavaScript colocar a classe "aberta".
+   ===================================================================== */
+.ampliada {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;                 /* fica por cima de tudo */
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 56px) 16px calc(env(safe-area-inset-bottom, 0px) + 24px);
+  background: #0c0908ea;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.ampliada.aberta {
+  display: flex;
+}
+
+/* Botão X no canto de cima */
+.ampliada-fechar {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  font-size: 22px;
+}
+
+.ampliada-figura {
+  width: 100%;
+  max-width: 440px;
+  transition: opacity 0.18s;   /* efeito de sumir/aparecer ao trocar de foto */
+  touch-action: pan-y;
+}
+
+.ampliada-moldura {
+  position: relative;
+}
+
+.ampliada-imagem {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 56vh;
+  object-fit: cover;
+  border-radius: 14px;
+  filter: grayscale(1);
+  box-shadow: 0 20px 50px #000a;
+}
+
+/* Setas dos lados da foto grande */
+.ampliada-seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: #0c0908b3;
+  backdrop-filter: blur(4px);
+  font-size: 24px;
+}
+
+.seta-esquerda {
+  left: 8px;
+}
+
+.seta-direita {
+  right: 8px;
+}
+
+.ampliada-legenda {
+  padding: 18px 4px 0;
+}
+
+.ampliada-titulo {
+  margin: 8px 0 6px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.ampliada-descricao {
+  color: #b8aca6;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+
+/* =====================================================================
+   12. EFEITO DE ONDA (clique)
+   O JavaScript cria um <span class="onda"> no ponto onde a pessoa clicou.
+   Ele cresce, fica transparente e é apagado.
+   ===================================================================== */
+.onda {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, var(--cor-da-rede, var(--cor-destaque)) 0%, transparent 70%);
+  opacity: 0.55;
+  transform: scale(0);
+  animation: onda-expandir 0.65s ease-out forwards;
+}
+
+@keyframes onda-expandir {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Para quem desligou animações no celular/computador: remove os efeitos */
+@media (prefers-reduced-motion: reduce) {
+  .onda,
+  .mapa-pulso {
+    display: none;
+  }
+  .anel-contador {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+  .avaliacao,
+  .avaliacao-caixa::after {
+    transition: none;
+  }
+  .foto-imagem,
+  .ampliada-figura {
+    transition: none;
+  }
+}
+
+
+/* =====================================================================
+   13. CELULARES PEQUENOS (telas de até 380px de largura)
+   Diminui alguns textos para tudo caber ao lado dos botões do home.
+   ===================================================================== */
+@media (max-width: 380px) {
+  .home-titulo {
+    font-size: 18px;
+  }
+  .home-subtitulo {
+    font-size: 10px;
+  }
+  .botao {
+    padding: 0 10px;
+    font-size: 6.5px;
+  }
+  .secao-contato .botao {
+    padding: 0 18px;
+    font-size: 10px;
+  }
+}
+
+
+/* =====================================================================
+   14. TABLET E COMPUTADOR (telas a partir de 700px de largura)
+   Aqui o site deixa de ser "só celular": ocupa a tela toda, o
+   conteúdo fica centralizado (largura máxima de 1120px) e os tamanhos
+   aumentam. Tudo o que não aparece aqui continua igual ao celular.
+   ===================================================================== */
+@media (min-width: 700px) {
+
+  /* A lateral passa a ser o MAIOR valor entre 32px e a sobra de cada lado
+     da tela (isso mantém o conteúdo centralizado, com no máximo 1120px) */
+  :root {
+    --espaco-lateral: max(32px, calc((100vw - 1120px) / 2));
+  }
+
+  /* O site passa a ocupar a tela toda */
+  body {
+    max-width: none;
+  }
+
+  /* TOPO */
+  .topo {
+    padding: 56px 0 44px;
+  }
+  .topo::after {
+    width: 340px;
+    height: 340px;
+  }
+  .logo {
+    width: 104px;
+    height: 104px;
+  }
+  .logo-imagem {
+    width: 84px;
+    height: 84px;
+  }
+
+  /* HOME */
+  .secao-home {
+    padding-top: 92px;
+    padding-bottom: 92px;
+  }
+  .home-conteudo {
+    gap: 60px;
+  }
+  .secao-home .titulo-pequeno {
+    font-size: 13px;
+  }
+  .home-titulo {
+    margin: 16px 0 18px;
+    font-size: 40px;
+  }
+  .home-subtitulo {
+    font-size: 16px;
+  }
+  .home-botoes {
+    width: 320px;
+    gap: 16px;
+  }
+  .secao-home .botao {
+    height: 68px;
+    padding: 0 30px;
+    border-radius: 12px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
+  .secao-home .botao .icone {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* GALERIA */
+  .secao-galeria {
+    padding-top: 68px;
+    padding-bottom: 64px;
+  }
+  .galeria-cabecalho {
+    margin-bottom: 30px;
+  }
+  .galeria-cabecalho .titulo-pequeno {
+    font-size: 12px;
+  }
+  .galeria-setas .botao-redondo {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+  .carrossel {
+    --espaco-entre-fotos: 20px;
+  }
+  .foto-item {
+    border-radius: 14px;
+  }
+
+  /* AVALIAÇÕES */
+  .secao-avaliacoes {
+    padding-top: 68px;
+    padding-bottom: 68px;
+  }
+  .secao-avaliacoes > .titulo-pequeno {
+    margin-bottom: 34px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .avaliacao-caixa,
+  .perfis {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .avaliacao-caixa {
+    margin-bottom: 36px;
+    padding: 36px 44px 38px;
+  }
+  .avaliacao {
+    text-align: center;
+  }
+  .avaliacao-estrelas {
+    font-size: 16px;
+  }
+  .avaliacao-texto {
+    max-width: 620px;
+    margin: 0 auto 18px;
+    font-size: 17px;
+  }
+  .avaliacao-nome {
+    font-size: 12px;
+  }
+  .perfil {
+    width: 84px;
+    height: 84px;
+  }
+  .perfil-foto {
+    top: 8px;
+    left: 8px;
+    width: 68px;               /* 84px do botão - 16px do anel */
+    height: 68px;
+    font-size: 20px;
+  }
+
+  /* CONTATO */
+  .secao-contato {
+    padding-top: 88px;
+    padding-bottom: 52px;
+    text-align: center;
+  }
+  .contato-titulo {
+    margin-bottom: 22px;
+    font-size: 44px;
+  }
+  .contato-frase {
+    margin-bottom: 38px;
+    font-size: 12px;
+  }
+  .secao-contato .botao {
+    width: 100%;
+    max-width: 460px;
+    height: 64px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+  }
+  .redes-sociais {
+    gap: 24px;
+  }
+  .rede-link {
+    width: 52px;
+    height: 52px;
+  }
+  .rede-link .icone {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* LOCALIZAÇÃO */
+  .secao-localizacao {
+    gap: 30px;
+    padding-top: 60px;
+    padding-bottom: 24px;
+  }
+  .mapa {
+    width: 84px;
+    height: 84px;
+    border-radius: 18px;
+  }
+  .localizacao-info .titulo-pequeno {
+    font-size: 11px;
+  }
+  .localizacao-endereco {
+    font-size: 15px;
+  }
+  .link-mapa {
+    font-size: 11px;
+  }
+
+  /* RODAPÉ */
+  .rodape {
+    padding-top: 34px;
+    padding-bottom: 40px;
+    font-size: 14px;
+  }
+
+  /* FOTO AMPLIADA (maior no computador) */
+  .ampliada-figura {
+    max-width: 540px;
+  }
+  .ampliada-imagem {
+    max-height: 62vh;
+  }
+  .ampliada-titulo {
+    font-size: 24px;
+  }
+  .ampliada-descricao {
+    font-size: 15px;
+  }
+}
+
+
+/* =====================================================================
+   TELAS GRANDES DE COMPUTADOR (a partir de 1100px)
+   Só aumenta mais um pouco os textos principais.
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .home-titulo {
+    font-size: 54px;
+  }
+  .home-subtitulo {
+    font-size: 18px;
+  }
+  .home-botoes {
+    width: 380px;
+  }
+  .contato-titulo {
+    font-size: 58px;
+  }
+  .avaliacao-texto {
+    font-size: 19px;
+  }
+}

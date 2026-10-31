@@ -1,0 +1,38 @@
+SITE DA IMPÉRIO BARBER - GUIA RÁPIDO
+====================================
+
+COMO ABRIR
+  Dê dois cliques em index.html (abre no navegador).
+  Mantenha as pastas juntas: index.html, css, js e imagens.
+
+ARQUIVOS
+  index.html ........ o conteúdo (textos, fotos, links, seções)
+  css/estilo.css .... a aparência (cores, tamanhos, animações)
+  js/script.js ...... o comportamento (carrossel, foto ampliada, avaliações)
+  imagens/ .......... logo, fotos e textura
+
+O QUE MUDAR E ONDE
+  Logo ................. troque imagens/logo.svg (ou mude o src no index.html, seção 1)
+  Fotos da galeria ..... troque imagens/foto-1.jpg ... foto-5.jpg (mesmo nome)
+                         ou mude o src e os textos no index.html, seção 3
+  Fundo do home ........ css/estilo.css -> --imagem-fundo-home (instruções no comentário)
+  Nome da barbearia .... procure "Império Barber" no index.html
+  WhatsApp/Instagram ... procure "TROQUE" no index.html
+  Endereço ............. index.html, seção 6 (Localização)
+  Avaliações ........... index.html, seção 4 (nome, texto, iniciais - em 2 lugares)
+  Cores ................ css/estilo.css, seção 1 (variáveis --cor-...)
+  Tempo das avaliações . css/estilo.css, --tempo-avaliacao
+  Velocidade do carrossel js/script.js, passosPorSegundo
+
+COMO ADICIONAR UMA NOVA SEÇÃO
+  1. No index.html, copie uma seção parecida (<section class="secao-...">...</section>)
+     e cole no lugar desejado, entre duas seções existentes.
+  2. Troque o texto e as classes por nomes novos (ex: secao-precos).
+  3. No css/estilo.css, copie o bloco de estilo da seção parecida e renomeie as classes.
+  4. Se precisar de comportamento (clique, animação), adicione no js/script.js
+     em uma nova seção numerada.
+
+COMO ADICIONAR UMA NOVA PÁGINA
+  Copie o index.html com outro nome (ex: servicos.html), mantenha as linhas
+  <link rel="stylesheet" ...> e <script src=...> e troque o conteúdo.
+  Depois crie um link para ela: <a href="servicos.html">Serviços</a>

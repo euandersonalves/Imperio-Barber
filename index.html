@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!--
+=====================================================================
+  SITE DA IMPÉRIO BARBER - ARQUIVO HTML (a estrutura do site)
+=====================================================================
+  Este site tem 3 arquivos principais:
+    - index.html      -> o conteúdo (textos, fotos, botões)   [ESTE ARQUIVO]
+    - css/estilo.css  -> a aparência (cores, tamanhos, animações)
+    - js/script.js    -> o comportamento (carrossel, foto ampliada...)
+
+  ORDEM DAS SEÇÕES (de cima para baixo):
+    1. Topo (logo)
+    2. Home (título e botões principais)
+    3. Galeria (carrossel de fotos)
+    4. Avaliações (comentários dos clientes)
+    5. Contato (chamada final e redes sociais)
+    6. Localização (mapa e endereço)
+    7. Rodapé
+    8. Foto ampliada (janela que abre ao clicar numa foto)
+
+  ONDE MUDAR AS COISAS MAIS COMUNS:
+    - Logo ............. troque o arquivo imagens/logo.svg
+    - Fotos da galeria . troque os arquivos imagens/foto-1.jpg ... foto-5.jpg
+                         (ou mude o src="" na seção 3)
+    - Fundo do home .... veja o comentário em css/estilo.css (--imagem-fundo-home)
+    - Nome da barbearia  procure por "Império Barber" neste arquivo
+    - Links (WhatsApp, Instagram, e-mail) .. procure por "TROQUE" neste arquivo
+    - Endereço ......... seção 6 (Localização)
+    - Avaliações ....... seção 4 (nomes, textos e iniciais)
+    - Cores ............ css/estilo.css, no começo do arquivo
+=====================================================================
+-->
+
+<head>
+  <meta charset="utf-8">
+  <!-- Faz o site se ajustar à tela do celular -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Título que aparece na aba do navegador -->
+  <title>Império Barber</title>
+
+  <!-- Ícone da aba do navegador (um emoji de barbeiro) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💈</text></svg>">
+
+  <!-- Fonte "Inter" do Google (se não carregar, o navegador usa outra fonte parecida) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" rel="stylesheet">
+
+  <!-- Arquivo com toda a aparência do site -->
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+
+  <!-- ===============================================================
+       DEFINIÇÃO DAS CORES DO ÍCONE DO INSTAGRAM
+       Este bloco não aparece na tela. Ele só guarda o degradê colorido
+       do Instagram, que o CSS usa quando passamos o mouse no ícone.
+       (não precisa mexer aqui)
+       =============================================================== -->
+  <svg class="svg-oculto" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="gradiente-instagram" gradientUnits="userSpaceOnUse" x1="3" y1="21" x2="21" y2="3">
+        <stop offset="0" stop-color="#FEDA77" />
+        <stop offset=".3" stop-color="#F58529" />
+        <stop offset=".55" stop-color="#DD2A7B" />
+        <stop offset=".8" stop-color="#8134AF" />
+        <stop offset="1" stop-color="#515BD4" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+
+  <!-- ===============================================================
+       1. TOPO
+       Só mostra o logo redondo no alto da página.
+       Para trocar o logo: substitua o arquivo imagens/logo.svg
+       (pode ser .png também, aí mude o nome no src abaixo).
+       =============================================================== -->
+  <header class="topo">
+    <div class="logo">
+      <img class="logo-imagem" src="imagens/logo.svg" alt="Logo da Império Barber">
+    </div>
+  </header>
+
+
+  <!-- ===============================================================
+       2. HOME
+       Primeira coisa que o cliente vê: o título, a frase e dois botões.
+       No celular o texto fica à esquerda e os botões à direita.
+       =============================================================== -->
+  <section class="secao-home" id="home">
+
+    <!-- Imagem de fundo opcional (definida no CSS em --imagem-fundo-home).
+         Se nenhuma imagem for escolhida, esta div fica vazia e invisível. -->
+    <div class="home-fundo-imagem"></div>
+
+    <div class="home-conteudo">
+
+      <!-- Lado esquerdo: textos -->
+      <div class="home-texto">
+        <span class="titulo-pequeno">Império Barber</span>
+        <h1 class="home-titulo">Precisão em cada detalhe. Excelência em cada corte.</h1>
+
+        <!-- A palavra "felizes" é só estética: ao clicar ela muda de cor.
+             Não leva a lugar nenhum. -->
+        <p class="home-subtitulo">
+          Tornando homens mais atraentes, confiantes e
+          <button class="palavra-felizes" id="palavra-felizes" type="button" aria-pressed="false">felizes</button>.
+        </p>
+      </div>
+
+      <!-- Lado direito: botões -->
+      <div class="home-botoes">
+
+        <!-- Botão 1: Agendar horário (abre o WhatsApp)
+             TROQUE o número no link: 55 = Brasil, 83 = DDD, depois o telefone -->
+        <a class="botao" href="https://wa.me/5583900000000" target="_blank" rel="noopener noreferrer">
+          Agendar horário
+          <!-- ícone de ondas sonoras -->
+          <svg class="icone icone-linha" viewBox="0 0 24 24">
+            <path d="M2 12h2m2-4v8m3-11v14m3-10v6m3-9v12m3-8v4m3-2h2" />
+          </svg>
+        </a>
+
+        <!-- Botão 2: Ver cortes recentes (abre o Instagram)
+             TROQUE o link pelo perfil real da barbearia -->
+        <a class="botao" href="https://www.instagram.com/eusou.andersonalves/?__pwa=1" target="_blank" rel="noopener noreferrer">
+          Ver cortes recentes
+          <!-- ícone do Instagram (fica colorido ao passar o mouse) -->
+          <svg class="icone icone-linha icone-instagram" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r=".6" />
+          </svg>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===============================================================
+       3. GALERIA (CARROSSEL DE FOTOS)
+       Mostra 4 fotos por vez e anda sozinho, sem parar.
+       Ao clicar numa foto, ela abre ampliada com título e descrição
+       (veja a seção 8 - Foto ampliada).
+
+       PARA TROCAR UMA FOTO:  mude o src="" dela
+       PARA MUDAR O TEXTO:    mude data-titulo e data-descricao
+       PARA ADICIONAR OUTRA:  copie um bloco <button class="foto-item">
+                              inteiro e cole depois do último.
+                              (o carrossel precisa de, no mínimo, 4 fotos)
+       =============================================================== -->
+  <section class="secao-galeria" id="galeria">
+
+    <!-- Título da galeria e as setas para passar as fotos -->
+    <div class="galeria-cabecalho">
+      <span class="titulo-pequeno">Sua melhor versão</span>
+
+      <div class="galeria-setas">
+        <button class="botao-redondo" id="botao-anterior" type="button" aria-label="Fotos anteriores">‹</button>
+        <button class="botao-redondo" id="botao-proximo" type="button" aria-label="Próximas fotos">›</button>
+      </div>
+    </div>
+
+    <!-- Faixa de fotos (o JavaScript faz ela andar) -->
+    <div class="carrossel" id="carrossel">
+
+      <!-- FOTO 1 -->
+      <button class="foto-item" type="button" aria-label="Ampliar foto: Cuidado facial"
+              data-titulo="Cuidado facial"
+              data-descricao="Limpeza e máscara hidratante para preparar a pele antes da barba. Relaxamento e acabamento premium.">
+        <img class="foto-imagem" src="imagens/foto-1.jpg" alt="Cuidado facial" draggable="false">
+      </button>
+
+      <!-- FOTO 2 -->
+      <button class="foto-item" type="button" aria-label="Ampliar foto: Corte na navalha"
+              data-titulo="Corte na navalha"
+              data-descricao="Acabamento nas laterais e na nuca com navalha, deixando as linhas precisas e limpas.">
+        <img class="foto-imagem" src="imagens/foto-2.jpg" alt="Corte na navalha" draggable="false">
+      </button>
+
+      <!-- FOTO 3 -->
+      <button class="foto-item" type="button" aria-label="Ampliar foto: Corte e finalização"
+              data-titulo="Corte e finalização"
+              data-descricao="Tesoura e máquina trabalhando juntas, com atenção a cada detalhe do seu estilo.">
+        <img class="foto-imagem" src="imagens/foto-3.jpg" alt="Corte e finalização" draggable="false">
+      </button>
+
+      <!-- FOTO 4 -->
+      <button class="foto-item" type="button" aria-label="Ampliar foto: Barba na navalha"
+              data-titulo="Barba na navalha"
+              data-descricao="Barba desenhada com toalha quente e navalha, contorno firme e pele macia.">
+        <img class="foto-imagem" src="imagens/foto-4.jpg" alt="Barba na navalha" draggable="false">
+      </button>
+
+      <!-- FOTO 5 (por enquanto repete a foto 2; troque por uma foto nova) -->
+      <button class="foto-item" type="button" aria-label="Ampliar foto: Degradê de precisão"
+              data-titulo="Degradê de precisão"
+              data-descricao="Transição suave e simétrica, feita fio a fio para um visual afiado.">
+        <img class="foto-imagem" src="imagens/foto-5.jpg" alt="Degradê de precisão" draggable="false">
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- ===============================================================
+       4. AVALIAÇÕES DOS CLIENTES
+       Mostra uma avaliação por vez, acima dos 3 perfis.
+       Cada perfil tem um contador laranja em volta. Quando o contador
+       acaba, passa para a próxima avaliação. O cliente também pode
+       clicar num perfil para escolher qual avaliação quer ler.
+
+       ATENÇÃO: os nomes e textos abaixo são EXEMPLOS.
+       Troque por avaliações reais (com autorização dos clientes).
+
+       Cada avaliação precisa de DUAS partes que andam juntas:
+         a) o texto, dentro de <div class="avaliacao"> (caixa de cima)
+         b) o botão do perfil, dentro de <div class="perfis"> (embaixo)
+       Se mudar o nome numa parte, mude na outra também.
+       =============================================================== -->
+  <section class="secao-avaliacoes" id="avaliacoes">
+
+    <span class="titulo-pequeno">O que dizem os clientes</span>
+
+    <!-- Caixa com as mensagens (só uma fica visível por vez).
+         A classe "ativa" marca a que está aparecendo no começo. -->
+    <div class="avaliacao-caixa">
+
+      <!-- Avaliação 1 -->
+      <div class="avaliacao ativa" aria-hidden="false">
+        <div class="avaliacao-estrelas" role="img" aria-label="5 estrelas">★★★★★</div>
+        <p class="avaliacao-texto">“Melhor corte que já fiz. Atendimento impecável e o acabamento na navalha é outro nível. Saí me sentindo outro homem.”</p>
+        <b class="avaliacao-nome">Rafael Oliveira</b>
+      </div>
+
+      <!-- Avaliação 2 -->
+      <div class="avaliacao" aria-hidden="true">
+        <div class="avaliacao-estrelas" role="img" aria-label="5 estrelas">★★★★★</div>
+        <p class="avaliacao-texto">“Ambiente top, barbeiros pontuais e muito atenciosos. A barba com toalha quente virou meu momento de relaxar na semana.”</p>
+        <b class="avaliacao-nome">Lucas Menezes</b>
+      </div>
+
+      <!-- Avaliação 3 -->
+      <div class="avaliacao" aria-hidden="true">
+        <div class="avaliacao-estrelas" role="img" aria-label="5 estrelas">★★★★★</div>
+        <p class="avaliacao-texto">“Precisão em cada detalhe, exatamente como prometem. Indiquei para os amigos e todos voltaram.”</p>
+        <b class="avaliacao-nome">Thiago Barbosa</b>
+      </div>
+
+    </div>
+
+    <!-- Os 3 perfis (um do lado do outro).
+         Para usar uma foto do cliente no lugar das iniciais, troque o <span> por:
+         <img class="perfil-foto" src="imagens/cliente-1.jpg" alt="Rafael Oliveira"> -->
+    <div class="perfis">
+
+      <!-- Perfil 1 -->
+      <button class="perfil ativo" type="button" aria-pressed="true" aria-label="Ver avaliação de Rafael Oliveira">
+        <!-- Anel: o círculo de baixo é fixo, o de cima é o contador que esvazia -->
+        <svg class="perfil-anel" viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="anel-fundo" cx="36" cy="36" r="33" />
+          <circle class="anel-contador" cx="36" cy="36" r="33" />
+        </svg>
+        <img class="perfil-foto" src="imagens/avalia/cliente-1.jpeg">
+      </button>
+
+      <!-- Perfil 2 -->
+      <button class="perfil" type="button" aria-pressed="false" aria-label="Ver avaliação de Lucas Menezes">
+        <svg class="perfil-anel" viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="anel-fundo" cx="36" cy="36" r="33" />
+          <circle class="anel-contador" cx="36" cy="36" r="33" />
+        </svg>
+        <img class="perfil-foto" src="imagens/avalia/cliente-2.jpeg">
+      </button>
+
+      <!-- Perfil 3 -->
+      <button class="perfil" type="button" aria-pressed="false" aria-label="Ver avaliação de Thiago Barbosa">
+        <svg class="perfil-anel" viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="anel-fundo" cx="36" cy="36" r="33" />
+          <circle class="anel-contador" cx="36" cy="36" r="33" />
+        </svg>
+        <img class="perfil-foto" src="imagens/avalia/cliente-3.jpeg">
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- ===============================================================
+       5. CONTATO
+       Frase final, botão para chamar no WhatsApp e ícones de contato.
+       Os ícones são laranja e ficam com a cor de cada rede quando
+       passamos o mouse por cima.
+       =============================================================== -->
+  <section class="secao-contato" id="contato">
+
+    <h2 class="contato-titulo">Seu novo visual começa aqui.</h2>
+    <span class="titulo-pequeno contato-frase">Todo homem atraente e confiante já tomou essa decisão.</span>
+
+    <!-- Botão grande (TROQUE o número do WhatsApp) -->
+    <a class="botao" href="https://wa.me/5583900000000" target="_blank" rel="noopener noreferrer">
+      Quero mais confiança
+      <!-- ícone de celular (fica verde ao passar o mouse) -->
+      <svg class="icone icone-linha icone-whatsapp" viewBox="0 0 24 24">
+        <rect x="7" y="2.5" width="10" height="19" rx="2.5" />
+        <path d="M11 18.5h2" />
+      </svg>
+    </a>
+
+    <!-- Os 4 ícones de contato -->
+    <nav class="redes-sociais" aria-label="Contatos">
+
+      <!-- E-mail (TROQUE o endereço) -->
+      <a class="rede-link rede-email" href="mailto:contato@imperiobarber.com" aria-label="E-mail">
+        <svg class="icone icone-cheio icone-email" viewBox="0 0 24 24">
+          <path d="M2 5h20v2.2l-10 6.3L2 7.2zM2 9.6l10 6.3 10-6.3V19H2z" />
+        </svg>
+      </a>
+
+      <!-- Instagram (TROQUE o link) -->
+      <a class="rede-link rede-instagram" href="https://www.instagram.com/eusou.andersonalves/?__pwa=1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg class="icone icone-linha icone-instagram" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r=".6" />
+        </svg>
+      </a>
+
+      <!-- Café (TROQUE o link "#" pelo endereço desejado) -->
+      <a class="rede-link rede-cafe" href="#" aria-label="Café">
+        <svg class="icone icone-cheio icone-cafe" viewBox="0 0 24 24">
+          <path d="M7 2h10l-.6 3H7.6zM6.6 6.5h10.8L16 21a1.5 1.5 0 0 1-1.5 1.3h-5A1.5 1.5 0 0 1 8 21z" />
+        </svg>
+      </a>
+
+      <!-- Telefone (TROQUE o número) -->
+      <a class="rede-link rede-telefone" href="tel:+5583900000000" aria-label="Telefone">
+        <svg class="icone icone-cheio icone-telefone" viewBox="0 0 24 24">
+          <path d="M6.6 2.5l3 4.5-2 2.2a12 12 0 0 0 6.2 6.2l2.2-2 4.5 3-1 3.4c-.3 1-1.2 1.5-2.2 1.3A17 17 0 0 1 2.4 6.7c-.2-1 .3-1.9 1.3-2.2z" />
+        </svg>
+      </a>
+
+    </nav>
+  </section>
+
+
+  <!-- ===============================================================
+       6. LOCALIZAÇÃO
+       Um mapa pequeno e quadrado do lado esquerdo e, ao lado, o endereço.
+       O mapa é um desenho simples (não é um mapa de verdade). Ao clicar
+       nele ou em "Abrir no mapa", abre o Google Maps.
+
+       PARA TROCAR O ENDEREÇO: mude o texto dentro de <p class="localizacao-endereco">.
+       PARA O LINK ABRIR O LOCAL EXATO: troque o link do Google Maps
+       (aparece 2 vezes abaixo) pelo link do seu local.
+       =============================================================== -->
+  <section class="secao-localizacao" id="localizacao">
+
+    <!-- Mapa (desenho) -->
+    <a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Imp%C3%A9rio+Barber+Jo%C3%A3o+Pessoa+PB"
+       target="_blank" rel="noopener noreferrer" aria-label="Abrir localização no mapa">
+      <svg viewBox="0 0 72 72" aria-hidden="true">
+        <!-- fundo do mapa -->
+        <rect width="72" height="72" fill="#1c1715" />
+        <!-- quarteirões -->
+        <g fill="#241d1a">
+          <rect x="4" y="4" width="22" height="20" rx="2" />
+          <rect x="32" y="4" width="18" height="20" rx="2" />
+          <rect x="56" y="4" width="14" height="20" rx="2" />
+          <rect x="4" y="30" width="22" height="16" rx="2" />
+          <rect x="32" y="30" width="18" height="16" rx="2" />
+          <rect x="56" y="30" width="14" height="16" rx="2" />
+          <rect x="4" y="52" width="22" height="16" rx="2" />
+          <rect x="32" y="52" width="18" height="16" rx="2" />
+          <rect x="56" y="52" width="14" height="16" rx="2" />
+        </g>
+        <!-- ruas -->
+        <path d="M0 27h72M0 49h72M29 0v72M53 0v72" stroke="#322a26" stroke-width="3" />
+        <!-- avenida na diagonal -->
+        <path d="M0 62L72 14" stroke="#4a3a33" stroke-width="3.5" />
+        <!-- círculo que pulsa embaixo do pino -->
+        <ellipse class="mapa-pulso" cx="36" cy="44" rx="4" ry="1.6" />
+        <!-- pino laranja -->
+        <g class="mapa-pino">
+          <path d="M36 44c-6-7-9-11-9-15a9 9 0 0 1 18 0c0 4-3 8-9 15z" fill="#f26a43" />
+          <circle cx="36" cy="29" r="3.2" fill="#1c1715" />
+        </g>
+      </svg>
+    </a>
+
+    <!-- Informações de localização (TROQUE o endereço de exemplo) -->
+    <div class="localizacao-info">
+      <span class="titulo-pequeno">Localização</span>
+      <p class="localizacao-endereco">Rua Pinheiro do Parana, 58062-305<br>Paratibe · João Pessoa, PB</p>
+      <a class="link-mapa" href="https://www.google.com/maps/search/?api=1&query=Imp%C3%A9rio+Barber+Jo%C3%A3o+Pessoa+PB"
+         target="_blank" rel="noopener noreferrer">Abrir no mapa <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+
+  <!-- ===============================================================
+       7. RODAPÉ
+       Última linha da página.
+       =============================================================== -->
+  <footer class="rodape">
+    © império barber • joão pessoa, pb
+  </footer>
+
+
+  <!-- ===============================================================
+       8. FOTO AMPLIADA
+       Janela que abre quando o cliente clica numa foto da galeria.
+       Fica escondida até alguém clicar. O JavaScript preenche a
+       imagem, o título e a descrição de acordo com a foto clicada.
+       =============================================================== -->
+  <div class="ampliada" id="ampliada" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+
+    <!-- Botão de fechar (X) -->
+    <button class="botao-redondo ampliada-fechar" id="ampliada-fechar" type="button" aria-label="Fechar">×</button>
+
+    <figure class="ampliada-figura" id="ampliada-figura">
+
+      <!-- A foto grande com as setas dos lados -->
+      <div class="ampliada-moldura">
+        <img class="ampliada-imagem" id="ampliada-imagem" alt="">
+        <button class="botao-redondo ampliada-seta seta-esquerda" id="ampliada-anterior" type="button" aria-label="Foto anterior">‹</button>
+        <button class="botao-redondo ampliada-seta seta-direita" id="ampliada-proximo" type="button" aria-label="Próxima foto">›</button>
+      </div>
+
+      <!-- Título e descrição da foto -->
+      <figcaption class="ampliada-legenda">
+        <h3 class="ampliada-titulo" id="ampliada-titulo"></h3>
+        <p class="ampliada-descricao" id="ampliada-descricao"></p>
+      </figcaption>
+
+    </figure>
+  </div>
+
+
+  <!-- Arquivo com o comportamento do site (carrossel, foto ampliada etc.).
+       Fica no final para o HTML já estar carregado quando ele rodar. -->
+  <script src="js/script.js"></script>
+
+</body>
+</html>
